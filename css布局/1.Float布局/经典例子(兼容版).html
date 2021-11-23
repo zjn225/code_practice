@@ -1,0 +1,149 @@
+<!-- 用的最广，支持IE5以上 -->
+<!-- 给儿子加上float:left -->
+<!-- 给老子加上clearfix -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.clearfix::after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.clearfix{
+			zoom:1;
+		}
+
+		/*头部部分*/
+		.parent{
+			border:1px solid green;
+			/*小于600时出现滚动条，不再缩放*/
+			min-width: 600px; 
+			/*如果有宽高
+			width: 1000px;
+			margin: 0 auto;*/
+		}
+		.child:nth-child(1){
+			float: left;
+			height: 36px;
+			/*有文字时垂直居中的方法：设置line-height*/
+			line-height: 36px; 
+			width:100px;
+			background:#00CD66;
+		}
+
+		.child:nth-child(2){
+			float: right;
+			background: #7FFF00	;
+		}
+
+		.nav{
+			height: 24px;
+			line-height: 24px;
+		}
+
+		.navItem{
+			float: left;
+			margin-left:5px;
+			/*通过padding使得导航和logo高度相同*/
+			padding: 6px 0;
+		}
+
+		/*banner部分*/
+		.banner{
+			width: 800px;
+			height: 400px;
+			background: grey;
+			margin: 10px auto;
+		}
+
+		/*主体部分*/
+		.picture{
+			width: 800px;
+			margin: 0 auto;
+			background: #CD5555;
+		}
+
+		.pictureItem{
+			float: left;
+			width: calc(25% - 8px);
+			height: 194px;
+			background: #ddd;
+			margin: 4px;
+		}
+
+		/*让主体均匀分布
+		最优方法：负margin法，相当于把wrapper的宽度增加了4
+		次方法：判断最右边的块令其margin-right为0
+		*/
+		.wrapper{
+			margin-left: -4px;
+			margin-right: -4px;
+		}
+
+		/*广告部分*/
+		.art{
+			width: 800px;
+			height: 300px;
+			margin: 10px auto;
+			background:lightblue;
+		}
+
+		.art>.main{
+			float: left;
+			border: 1px solid orange;
+			height: 300px;
+			width:calc(66.2% - 20px);
+			margin-left: 20px;
+		}
+
+		.art>.sider{
+			float: left;
+			border: 1px solid black;
+			width:33.3%;
+			height: 300px;
+		}
+
+	</style>
+</head>
+<body>
+	<header class="parent clearfix">
+		<!-- logo部分 -->
+		<div class="child">logo</div>
+		<!-- 导航栏部分 -->
+
+		<div class="child clearfix">
+			<div class="nav">
+				<div class="navItem">1</div>
+				<div class="navItem">2</div>
+				<div class="navItem">3</div>
+				<div class="navItem">4</div>
+				<div class="navItem">5</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- banner部分 -->
+	<div class="banner"></div>
+
+	<!-- 主体部分 -->
+	<div class="picture">
+		<div class="wrapper clearfix">
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+		</div>
+	</div>
+
+	<!-- 广告部分 -->
+	<div class="art clearfix">
+		<div class="sider">广告1</div>
+		<div class="main">广告2</div>
+	</div>
+</body>
+</html>

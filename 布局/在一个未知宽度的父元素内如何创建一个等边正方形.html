@@ -1,0 +1,34 @@
+<!-- 首先需要知道，一个元素的  padding  ，如果值是一个百分比，那这个百分比时相对于其父元素的宽度
+    而言的，即使对于  padding-bottom  和  padding-top  也是如此 -->
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <style>
+            .parent {
+                height: 300px;
+                width: 30%;
+                background-color: lightblue;
+            }
+
+            .son {
+                /* 宽度的百分比自然也是基于父元素的宽度 */
+                width: 80%;
+                /* 高用padding-bottom撑开：基于父元素宽度的80% */
+                padding-bottom: 80%;  
+                background-color: red;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="parent">
+            <div class="son"></div>
+        </div>
+    </body>
+    </html>

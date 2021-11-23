@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 要点1：默认是隐藏的，然后绝对定位创建遮罩层，防止再次点击 */
+        /* 如果用JS，要注意单例模式的使用 */
+        .modal-mask {
+            position: fixed;
+            z-index: 9998;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: block;
+        }
+
+        .modal-container {
+            /* 整体的位置固定 */
+            position: absolute;
+            top: 30%;
+            left: 15%;
+
+            width: 250px;
+            margin: 0px auto;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+            transition: all 0.3s ease;
+        }
+
+        .model-header {
+            border-radius: 3px;
+            width: 250px;
+            height: 46px;
+            background: #02BB58;
+        }
+
+        #subject {
+            color: #FFFFFF;
+            font-size: 17px;
+            height: 44px;
+            display: block;
+            text-align: center;
+            line-height: 44px;
+        }
+
+        .content {
+            color: #4A4A4A;
+            width: 100%;
+            height: 114px;
+            background: #FFFFFF;
+            padding-top: 8px;
+            border-bottom: .3px solid #F3F6F4;
+        }
+
+        .content p {
+            padding: 9px 40px;
+        }
+
+        #sure {
+            width: 250px;
+            height: 44px;
+            color: #02BB58;
+            background: #FFFFFF;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal-mask" id="model">
+        <div class="modal-container">
+            <div class="model-header">
+                <div id="subject">
+                    <span>你好</span>
+                </div>
+            </div>
+            <div class="content">
+                <p>这是内容</p>
+            </div>
+            <button id="sure">确定</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*一、在数组 arr 末尾添加元素 item。
+    不要直接修改数组 arr，结果返回新的数组*/
+    
+    //splice方法,增删的第一想法
+    function add(arr, item) {
+        let newArr = arr.slice(0);
+        let length = arr.length;
+        newArr.splice(length, 0, item)
+        return newArr;
+    }
+
+    //for循环复制+push
+    function append(arr, item) {
+        let newArr = [];
+        for (i = 0; i < arr.length; i++) {
+            newArr.push(arr[i]);
+        }
+        newArr.push(item);
+        return newArr;
+    }
+
+    //slice复制+push
+    function append2(arr, item) {
+        let newArr = arr.slice(0);
+        newArr.push(item);
+        return newArr;
+    }
+
+    //concat
+    function append3(arr, item) {
+        return arr.concat(item);
+    }
+
+    /*二、开头
+    * splice、for/slice复制+unshift()、concat()
+    */
+
+    
+    /*三、哪个位置都能添加*/
+
+     //利用slice/for复制 +splice
+    function insert(arr, item, index) {
+        let newArr=arr.slice(0);
+        newArr.splice(index, 0, item);
+        return newArr;
+    }
+
+</script>
+</body>
+</html>

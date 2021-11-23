@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		/*计算给定数组 arr 中所有元素的总和*/
+
+		//forEach
+		function sum(arr) {
+			var s = 0;
+			arr.forEach(function (val, idx, arr) {
+				s += val;
+			})
+			return s;
+		}
+
+		//for
+		function sum2(arr) {
+			var sum = 0;
+			for (var i = 0; i < arr.length; i++) {
+				sum += arr[i];
+			}
+			return sum;
+		}
+
+		//reduce
+		function leijia2(arr) {
+			return arr.reduce(function (pre, cur) {
+				return pre + cur
+			})
+		}
+
+		console.log(leijia2([2, 3, 4, 5]))
+
+		//递归
+		function sum3(arr) {
+			var len = arr.length;
+			if (len === 0) {
+				return 0
+			} else if (len === 1) {
+				return arr[0]
+			} else {
+				return arr[0] + arguments.callee(arr.slice(1))
+			}
+		}
+		var arr = [1, 2, 3, 4]
+		//1+sum([2,3,4]) = 1+2+sum(3,4)
+		console.log(sum3(arr))
+
+		// join
+		function leijia3() {
+			let arr = Array.prototype.slice.call(arguments[0])//把arguments类数组转化为数组
+			let arr2 = arr.join("+")
+			return eval(arr.join("+"));//求和
+		}
+
+
+	</script>
+</body>
+
+</html>

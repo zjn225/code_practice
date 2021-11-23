@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!-- 返回值依然为数组，只不过是原先的平方 -->
+
+<body>
+    <script>
+        //map
+        const square3 = arr => arr.map(v => v * v);
+
+        //forEach，需要自己定义数组然后返回他，不能写箭头函数
+        function square2(arr) {
+            var result = [];
+            arr.forEach(function (v) {
+                result.push(v * v);
+            });
+            return result;
+        }
+
+        //累乘3*2*1
+        function leicheng(n) {
+            if (n === 1) {
+                return 1
+            }
+            return n * leicheng(n - 1)
+        }
+        console.log(leicheng(3))
+
+        // 数组累乘，有length的用循环
+        function leichengArr(arr) {
+            let sum = arr[0]
+            for (i = 1; i < arr.length; i++) {
+                sum = sum * arr[i]
+            }
+            return sum
+        }
+
+        // reduce
+        function leichengRedu(arr) {
+            return arr.reduce((pre, cur) => {
+                return pre * cur
+            })
+        }
+
+        console.log(leichengRedu([3, 4, 2]))
+
+        //不用循环用递归呢
+        function leichengArr2(arr) {
+            var len = arr.length;
+            if (len === 0) {
+                return 0
+            } else if (len === 1) {
+                return arr[0]
+            } else {
+                return arr[0] * arguments.callee(arr.slice(1))
+            }
+        }
+
+        console.log(leichengArr2([3, 4, 2]))
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	body{
+        margin:0;
+        padding:0;
+        min-width:600px;
+    }
+    .main{
+        float:left;
+        width:100%;  /*自适应*/
+    }
+    .main_body{
+        margin:0 210px;
+        background:#888;
+        height:200px;
+    }
+    .left,.right{
+        float:left;
+        width:200px;
+        height:200px;
+        background:#F60;
+    }
+    .left{
+        margin-left:-100%;  /*类似relative但是不保留原来位置，改变了文档流的位置，往左边流了100%，right方块也向左边流*/
+
+        /*一般来说，负margin都是向前流动的*/
+    }
+    .right{
+        margin-left:-200px;
+    }
+	</style>
+</head>
+<body>
+	<!-- 主体放第一位，保证最先渲染 -->
+    <div class="main">
+        <div class="main_body">Main</div>
+    </div>
+    <div class="left">Left</div>
+    <div class="right">Right</div>
+</body>
+</html>

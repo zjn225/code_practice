@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        header,
+        footer {
+            height: 50px;
+            background: #ddd;
+        }
+
+        .content {
+            /*不用flex布局默认是自上到下，不加flex-direction的话默认是横向*/
+            /*加了flex默认就开始自左向右了*/
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        /*中间栏放到文档流前面，保证先行渲染*/
+        main {
+            height: 400px;
+            /*把宽度多余的给占了，flex的值为int时，表示flex-grow为1.flex-shrink 取 1，flex-basis 取 0%*/
+            flex: 1;
+            order: 2;
+            background: orange;
+        }
+
+        nav {
+            width: 100px;
+            background: green;
+            order: 1;
+        }
+
+        aside {
+            width: 120px;
+            background: #444;
+            order: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>头部</header>
+    <div class="content">
+        <nav>左边栏</nav>
+        <main>主体</main>
+        <aside>右边栏</aside>
+    </div>
+    <footer>底部</footer>
+</body>
+
+</html>

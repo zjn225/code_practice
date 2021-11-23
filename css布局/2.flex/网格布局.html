@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            width: auto;
+        }
+
+        .item {
+            flex: 1;
+            /*平均分配的话直接就这一句，等价于flex-grow: 1;flex-shrink: 1;父容器宽度有多则加无多则减*/
+        }
+
+        .item1 {
+            flex-grow: 1;
+            /*父容器比较大时用flex-grow，小的时候用flex-shrink*/
+            background-color: blueviolet;
+        }
+
+        .item2 {
+            flex-grow: 2;
+            background-color: darkred;
+        }
+
+        .item3 {
+            flex-grow: 3;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="item item1">1</div>
+    <div class="item item2">2</div>
+    <div class="item item3">3</div>
+</div>
+</body>
+</html>

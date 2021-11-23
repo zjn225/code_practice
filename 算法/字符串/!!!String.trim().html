@@ -1,0 +1,9 @@
+<script>
+    String.prototype.emuTrim = function () {
+        // 这条正则很好理解,就是把头部尾部多余的空格字符去除
+        return this.replace(/(^\s*)|(\s*$)/g, '');  //整体括起来是得到a、b、ab,否则只有a或b
+    }
+
+    '  fsaf fsdaf f safl lllll    '.emuTrim();  //"fsaf fsdaf f safl lllll" 
+
+</script>

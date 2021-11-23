@@ -1,0 +1,43 @@
+<!-- 用的最广，支持IE5以上 -->
+<!-- 给儿子加上float:left -->
+<!-- 给老子加上clearfix -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.parent{
+			border:1px solid green;
+			/*如果有宽高
+			width: 1000px;
+			margin: 0 auto;*/
+		}
+		.child{
+			float: left;
+		}
+		.child:nth-child(1){
+			width: 30%;
+			background: red;
+		}
+
+		.child:nth-child(2){
+			width: 70%;
+			background: blue;
+		}
+		.clearfix::after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.clearfix{
+			zoom:1;
+		}
+	</style>
+</head>
+<body>
+	<div class="parent clearfix">
+		<div class="child">儿子1</div>
+		<div class="child">儿子2</div>
+	</div>
+</body>
+</html>

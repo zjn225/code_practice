@@ -1,0 +1,43 @@
+<script>
+    // 质数是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数
+    // 核心：判断是否质数
+    function isPrime(n) {
+        // 从2到n之间，如果n能整除这个区间的任何数，则不是质数
+        for (let i = 2; i < n; i++) {
+            if (n % i === 0) {
+                return false
+            }
+        }
+        return true;
+    }
+
+    // 求一个数的所有质因数（因数中是质数的）
+    function allPrime(n) {
+        let result = [];
+        for (let i = 2; i < n; i++) {
+            if (n % i === 0 && isPrime(i)) {
+                result.push(i)
+            }
+        }
+        return result
+    }
+
+    console.log("质因数", allPrime(100))
+
+    // 求xxx内的所有质数
+    let prime = function (len) {
+        let i;
+        let result = [];
+        for (i = 2; i < len; i++) {
+            if (isPrime(i)) {
+                result.push(i)
+            }
+        }
+        return result;
+    };
+
+    let result = prime(1000)
+    console.log(result);
+
+
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1 {
+            /* box-sizing: content-box; / border-box */
+            margin: 20px;
+            padding: 10px;
+            width: 200px;
+            height: 50px;
+            border: 10px solid lightcoral;
+            background-color: lightblue;
+            box-sizing: content-box;
+        }
+
+        .box2 {
+            /* box-sizing: content-box; / border-box */
+            margin: 20px;
+            padding: 10px;
+            width: 200px;
+            height: 50px;
+            border: 10px solid lightcoral;
+            background-color: lightblue;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 标准模型 -->
+    <div class="box1">box1</div>
+    <!-- IE模型 -->
+    <div class="box2">box2</div>
+
+    <script>
+        const dom1 = document.querySelector('.box1')
+        const dom2 = document.querySelector('.box2')
+
+        console.log('dom1', window.getComputedStyle(dom1).width, dom1.getBoundingClientRect().width) // 200px
+        console.log('dom2', window.getComputedStyle(dom2).width, dom2.getBoundingClientRect().width)  // 200px
+    </script>
+</body>
+
+</html>

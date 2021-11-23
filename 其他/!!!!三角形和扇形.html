@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>扇形</title>
+</head>
+<style>
+  .shanxing {
+    width: 0;
+    border-width: 50px;
+    border-style: solid;
+    border-color: greenyellow transparent transparent;
+    border-radius: 50%;
+    /* 比三角形的多了一个border-radius */
+  }
+
+  .sanjiaox {
+    /* width:0 每一条边都是三角形，>0的话是梯形，=0就变成三角形了 */
+    width: 0;
+    /* 宽度交给border-width控制 */
+    border-width: 50px;
+    /* 必须要有style，否则有width和border-width都不会出现东西 */
+    border-style: solid;
+    /* 上面有颜色，下左右是透明，每一条边都是梯形 */
+    border-color: greenyellow transparent transparent;
+  }
+
+  .normal {
+    width: 36px;
+    border-width: 66px;
+    border-color: greenyellow blue red;
+    border-style: solid;
+  }
+</style>
+
+<body>
+  <!-- 正常的border -->
+  <div class="normal"></div>
+
+  <div class="shanxing"></div>
+
+  <div class="sanjiaox"></div>
+
+</body>
+
+</html>

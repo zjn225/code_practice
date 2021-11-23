@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function cloneDeep(source, hash = new Map()) {
+            // 循环检测，我们设置一个数组或者哈希表存储已拷贝过的对象，当检测到当前对象已存在于哈希表中时，取出该值并返回即可
+            if (hash.has(source)) return hash.get(source); // 新增代码，查哈希表
+            let target = Array.isArray(source) ? [] : {}; // source拷贝到target
+            hash.set(source, target); // 新增代码，哈希表设值, 一开始target确实是空，但是接下来给target的属性赋值吗，target也是会变化的
+            console.log('hash', hash);
+            for (let key in source) {
+                const value = source[key];
+                if (source.hasOwnProperty(key)) {
+                    // value是Object或Array，且不是null（因为typeof null也是object）
+                    if (typeof value === 'object' && value) {
+                        target[key] = cloneDeep(value, hash); // 传入哈希表
+                    } else {
+                        target[key] = value;
+                    }
+                }
+            }
+            return target;
+        }
+
+        var a = {
+            name: "muyiy",
+            book: {
+                title: "You Don't Know JS",
+                price: "45"
+            },
+            a1: undefined,
+            a2: null,
+            a3: 123
+        }
+        a.circleRef = a; // 循环引用
+
+        let b = cloneDeep(a)
+        console.log(b);
+    </script>
+</body>
+
+</html>

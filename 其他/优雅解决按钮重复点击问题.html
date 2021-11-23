@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id='btn'>辣鸡方法</button>
+    <button id='btn-auto'>自动解锁</button>
+    <button id='btn-manual'>手动解锁</button>
+
+    <script>
+        const btnDom = document.querySelector('#btn');
+        const btnAutoDom = document.querySelector('#btn-auto');
+        const btnManualDom = document.querySelector('#btn-manual');
+
+        // 方法1：利用lock
+
+        // 这里很奇妙的返回函数+立即执行，如果不立即执行，那么里面不会执行到；这种方式的优点是能利用闭包的属性设置在函数体里设置一个类似全局里定义的变量；否则这个变量就只能写到函数外的全局里去了
+        // 每次执行，return的函数，也就是闭包，引用的lock始终都是第一次执行时的lock，而不是随着IIFE的执行而重新定义
+        let go = (() => {
+            let lock = false;
+            return () => {
+                if (lock) {
+                    console.log('滚....不要重复执行');
+                    return;
+                }
+                lock = true;
+                // 手动在开发者工具调慢网速测试
+                fetch('https://www.fastmock.site/mock/09df78893ca53afc120906deab6bea31/qingsuan/all').then(response => {
+                    return response.json();
+                }).then(res => {
+                    console.info('success', res);
+                }).finally(() => {
+                    lock = false;
+                    console.log('end', lock);
+                })
+            };
+        })();
+
+        // 方法2：对于button按钮，可以使用setAttribute('disabled', xxx)和removeAttribute('disabled')来代替lock标记
+
+        // 方法3：优雅！上述的问题在于对于每一次按钮点击，我们都要写个lock标记，相当于重复的逻辑会出现在代码的各个地方——是不是可以封装一下呢？
+        // 写一个装饰器将逻辑封装起来：
+
+        function ignoreMultiClick(func, manual = false) {
+            let lock = false
+            // 这个arg来源于事件监听那里，比如默认会传入e，如果用bind还能传入额外的参数
+            // 装饰器肯定要返回一个函数，而不是直接执行，最终执行者是事件监听那里
+            return function (...args) {
+                if (lock) return
+                lock = true
+                // 解锁逻辑
+                let done = () => {
+                    lock = false
+                }
+                if (!manual) {
+                    // 自动解锁，在原监听函数func返回一个promise，在该promise决议后自动执行解锁操作。因为Promise管理回调函数非常方便，并且像axios这样非常常用的请求库返回值本身也是一个promise，所以默认情况使用这种方式
+                    // 这个func执行返回的是一个promise
+                    let promise = func.call(this, ...args)
+                    Promise.resolve(promise).finally(done)
+                    return promise; // 最终返回一个新函数作为事件监听函数
+                } else {
+                    // 手动解锁，可以给ignoreMultiClick传递一个参数manual，意思是主动调用解锁。若该参数为true，则点击事件触发时会给原始的点击回调func传递一个参数done，done是一个函数，调用它可以解锁
+                    // 虽然这里是返回一个函数，但是call也是立即执行的
+                    // 把done方法传入，使其手动解锁
+                    return func.call(this, ...args, done)
+                }
+            }
+        }
+
+        // 自动解锁
+        // 传入一个需要防止重复点击的函数func
+        let goAuto = ignoreMultiClick(function (postParams) {
+            // if (!checkForm()) return // 假设有一些检测表单的操作，检查不通过则直接返回
+            // 为什么这里要返回函数，因为在装饰器里要实现自动解锁，就需要在装饰器里写finally，所以这里返回个promise，给装饰器去resolve，就可以在装饰器里写finally
+            return fetch('https://www.fastmock.site/mock/09df78893ca53afc120906deab6bea31/qingsuan/all').then(response => {
+                return response.json();
+            }).then(res => {
+                console.info('success222', res);
+            })
+        })
+
+        // 手动解锁，这里入参用的是es6的rest参数
+        let goManual = ignoreMultiClick(function (postParams, done) {
+            // if (!checkForm()) return done() // 表单验证不通过解锁
+            fetch('https://www.fastmock.site/mock/09df78893ca53afc120906deab6bea31/qingsuan/all').then(response => {
+                return response.json();
+            }).then(res => {
+                console.info('success222', res);
+            }).finally(() => {
+                // 请求结束手动解锁
+                done();
+            })
+        }, true)
+
+
+        btnDom.addEventListener('click', go);
+        btnAutoDom.addEventListener('click', goAuto);
+        btnManualDom.addEventListener('click', goManual);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.parent{
+			background: blue;
+			width: 800px;
+			height: 400px;
+			/*对父元素设置text-align来使行内元素居中*/
+			text-align: center; 
+		}
+		.child{
+			background: green;
+			width: 200px;
+			height: 100px;
+			/*设置margin来使定宽块元素居中*/
+			margin: 0 auto;
+		}
+		.child2{
+			background: orange;
+			width: auto;
+			height: 100px;
+			/*重点就是table这个属性,这个样式会告知浏览器当前元素的宽度,采用最小的宽度.不是默认全宽*/
+			display: table; 
+    		margin: 0 auto; 
+		}
+
+	</style>
+</head>
+<body>
+	<div class="parent">
+		<!-- 定宽块元素 -->
+   	 	<div class="child"></div>	
+   	 	<!-- 行内元素 -->
+   	 	<span>我是行内元素</span>	
+   	 	<!-- 非定宽块元素 -->
+   	 	<div class="child2">
+   	 		<ul>
+   	 			<li>项目</li>
+   	 			<li>项目</li>
+   	 			<li>项目</li>
+   	 		</ul>
+   	 	</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!-- 适用于高级浏览器、且兼容手机浏览器 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=0,maximum-scale=0,minimum-scale=1.0">
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			margin:0;
+			padding: 0;
+
+		}
+		.clearfix::after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.clearfix{
+			zoom:1;
+		}
+		/*头部部分*/
+		.parent{
+			margin-left: auto;
+			margin-right: auto;
+			background: #ddd;
+			/*如果有宽高
+			width: 1000px;
+			margin: 0 auto;*/
+		}
+		.child:nth-child(1){
+			float: left;
+			background:#333;
+			color: white;
+			width:100px;
+			line-height: 36px;
+			text-align: center;
+			height: 36px;
+			/*有文字时垂直居中的方法：设置line-height*/
+			line-height: 36px; 
+
+		}
+
+		.child:nth-child(2){
+			background: lightblue;
+			float: right;
+			padding-right: 20px;
+			height: 36px;
+			/*有文字时垂直居中的方法：设置line-height*/
+			line-height: 36px; 
+
+		}
+
+		/*手机模式下的导航栏*/
+		.nav2{
+			display: none;
+
+		}
+
+		@media (max-width: 420px){
+			.nav2{
+				display: block;
+			}
+			.nav{
+				display: none;
+			}
+		}
+
+		/*PC模式下的导航栏*/
+		.nav{
+			height: 24px;
+			line-height: 24px;
+
+		}
+
+		.navItem{
+			float: left;
+			margin-left:20px;
+			/*通过padding使得导航和logo高度相同*/
+			padding: 6px 0;
+
+		}
+
+		/*banner部分*/
+		.banner{
+			width: 800px;
+			height: 400px;
+			background: grey;
+			margin: 10px auto;
+		}
+
+		@media (max-width: 420px){
+			.banner{
+				width: auto;
+			}
+		}	
+
+		/*主体部分*/
+		.picture{
+			width: 800px;
+			margin: 0 auto;
+			background: #CD5555;
+		}
+
+		/*让主体均匀分布
+		最优方法：负margin法，相当于把wrapper的宽度增加了4
+		次方法：判断最右边的块令其margin-right为0
+		*/
+		.wrapper{
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -4px;
+			/*justify-content: space-between;  用这个如果不为4n个 很丑*/
+		}
+
+		.pictureItem{
+			width: calc(25% - 8px);
+			height: 194px;
+			background: #ddd;
+			margin-top: 4px;
+			border: 1px solid orange;
+			margin:4px;
+		}
+
+
+		@media (max-width: 420px){
+			.picture{
+				width: auto;
+				overflow: hidden;
+			}
+			.pictureItem{
+				width: calc(50% - 8px);
+			}
+		}	
+
+		/*广告部分*/
+		.art{
+			display: flex;
+			justify-content: space-between; /*避免了写margin*/
+			width: 800px;
+			height: 300px;
+			margin: 10px auto;
+			background:lightblue;
+		}
+
+		@media (max-width: 420px){
+			.art{
+				width: auto;
+				height: auto;
+				flex-direction: column;
+			}
+		}
+
+		.main{
+
+			border: 1px solid orange;
+			height: 300px;
+			width:calc(66.2% - 20px);
+		}
+
+		.sider{
+			border: 1px solid black;
+			width:33.3%;
+			height: 300px;
+		}
+
+		@media (max-width: 420px){
+			.main{
+				width: auto;
+				height: auto;
+			}
+			.sider{
+				width: auto;
+				height: auto;
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<header class="parent clearfix">
+		<!-- logo部分 -->
+		<div class="child">logo</div>
+		<!-- 导航栏部分 -->
+
+		<div class="child">
+			<div class="nav">
+				<div class="navItem">导航1</div>
+				<div class="navItem">导航2</div>
+				<div class="navItem">导航3</div>
+				<div class="navItem">导航4</div>
+				<div class="navItem">导航5</div>
+			</div>
+			<div class="nav2">三</div>
+		</div>
+	</header>
+
+	<!-- banner部分 -->
+	<div class="banner"></div>
+
+	<!-- 主体部分 -->
+	<div class="picture">
+		<div class="wrapper">
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+			<div class="pictureItem"></div>
+		</div>
+	</div>
+
+	<!-- 广告部分 -->
+	<div class="art">
+		<div class="sider">广告1</div>
+		<div class="main">广告2</div>
+	</div>
+</body>
+</html>

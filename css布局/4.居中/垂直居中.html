@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.parent1{
+			width: 400px;
+			height: 200px;
+			line-height: 200px;
+			background: green;
+		}
+		
+		.parent2{
+			width: 400px;
+			height: 200px;
+			background: orange;
+			display: table-cell;
+			vertical-align:middle;
+		}
+
+		.parent3{
+			width: 400px;
+			height: 200px;
+			background: blue;
+		}
+
+		.parent3 .child{
+			background: red;
+			width: 80px;
+			height: 80px;
+			position: relative;
+    		top: 50%;
+      		transform: translateY(50%);
+		}
+
+	</style>
+</head>
+<body>
+	<!--父元素一定，子元素为单行内联文本，设置line-height-->
+	<div class="parent1">
+    	<span class="child">我是内联元素1</span>
+    </div>
+
+    <!-- 父元素一定，子元素为多行内联文本 -->
+    <div class="parent2">
+    	<span class="child">我是内联元素</span>
+    	<span class="child">我是内联元素</span>
+    	<span class="child">我是内联元素</span>
+    </div>
+
+    <!-- 块状元素 -->
+    <div class="parent3">
+    	<div class="child">我是块状元素</div>
+    </div>
+</div>
+</body>
+</html>

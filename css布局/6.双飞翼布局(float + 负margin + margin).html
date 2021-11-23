@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<style type="text/css">
+		/*
+	样式：去掉了左右栏的相对定位，去掉包裹层padding，以中间栏新增div的margin代替
+	!!!里层main-content的作用就是将main定位到合适的位置，并方便设置padding等属性。
+	*/
+
+		#main-wrap {
+			width: 100%;
+			height: 300px;
+			float: left;
+			background: lightgreen;
+		}
+
+		#main {
+			background: red;
+			margin: 0 230px 0 0;
+		}
+
+		.extra {
+			float: left;
+			background: blue;
+			width: 230px;
+			height: 300px;
+			margin-left: -230px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="main-wrap" class="column">
+		<div id="main">#main</div>
+	</div>
+	<div class="extra">extra</div>
+</body>
+
+</html>

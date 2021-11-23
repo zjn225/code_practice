@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	/*使用绝对定位将div定位到body的中心，然后使用负margin（content宽高的一半），将div的中心拉回到body的中心，已到达水平垂直居中的效果。*/
+    #test{
+        width:200px;
+        height:200px;
+        background:#F60;
+        position:absolute;
+        left:50%;
+        top:50%;
+        /*只有负margin才能改变文档流*/
+        margin-left:-100px;
+        margin-top:-100px;
+    }
+	</style>
+</head>
+<body>
+	<div id="test"></div>
+</body>
+</html>

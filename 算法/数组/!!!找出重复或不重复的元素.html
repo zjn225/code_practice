@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+
+<body>
+	<script>
+		// 方法一：indexOf+lastIndexOf  利用数组，找出重复的
+		function duplicates(arr) {
+			let res = [];
+			arr.forEach(function (item) {
+				if (arr.indexOf(item) !== arr.lastIndexOf(item) && !res.includes(item)) {//表示不在结果数组里,在的话就不加进去了
+					res.push(item);
+				}
+			})
+			return res;
+		}
+
+		console.log(duplicates([5, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4]));
+
+		// 方法二、： 利用对象统计
+		function duplicates2(arr) {
+			//a数组用来存放结果，obj对象用来存放arr中每个元素的个数
+			let res = [], obj = {};
+			//遍历arr，如果以arr中元素为下标的的obj元素已存在，则该obj元素加1，否则设置为1
+			for (let i = 0; i < arr.length; i++) {
+				let cur = arr[i];
+				if (obj[cur]) {
+					obj[cur]++;
+				} else {
+					obj[cur] = 1
+				}
+			}
+			//遍历obj对象，将其中元素值大于1的元素下标存入a数组中
+			for (let i in obj) {
+				if (obj[i] > 1) {
+					res.push(i)
+				}
+			}
+			return res;
+		}
+
+		// forEach写法
+		function dup2(arr) {
+			let res = [];
+			let obj = [];
+			arr.forEach((v, i, a) => {
+				if (obj[v]) {
+					obj[v]++
+				} else {
+					obj[v] = 1
+				}
+			})
+			for (let i in obj) {
+				if (obj[i] > 1) {
+					res.push(i)
+				}
+			}
+			return res
+		}
+
+
+		// 百度面试题，在原型中添加,记得要调用this
+		Array.prototype.duplicatesArr = function () {
+			let res = [];
+			this.forEach((v) => {
+				if (this.indexOf(v) !== this.lastIndexOf(v) && res.indexOf(v) === -1) {
+					res.push(v)
+				}
+			})
+			return res;
+		}
+		alert(['a', 'b', 'c', 'd', 'b', 'a', 'e'].duplicatesArr());
+
+	</script>
+</body>
+
+</html>

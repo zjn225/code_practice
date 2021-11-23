@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box-left"></div>
+        <div class="box-right3"></div>
+    </div>
+
+    <style>
+        /* 利用float + margin实现 */
+        .box {
+            height: 200px;
+        }
+
+        .box>div {
+            height: 100%;
+        }
+
+        .box-left {
+            width: 200px;
+            float: left;
+            background-color: blue;
+        }
+
+        .box-right {
+            margin-left: 200px;
+            background-color: red;
+        }
+
+        /* 利用calc计算宽度 */
+        .box-right2 {
+            width: calc(100% - 200px);
+            float: right;
+            background-color: red;
+        }
+
+        /* 利用float + overflow实现 BFC规则之一 */
+        /* 如果不让右边的块生成新的BFC，那么原本左右两块是在父级这个共同的BFC下的，那么两块的margin的左边都会接触到父级的左边框 */
+        /* 通过float和生成新的BFC即可生成自适应两栏布局 */
+        .box-right3 {
+            overflow: hidden;
+            background-color: red;
+        }
+
+        /*  */
+        .box-right {
+            flex: 1;
+            overflow: hidden;
+            background-color: red;
+        }
+    </style>
+</body>
+
+</html>

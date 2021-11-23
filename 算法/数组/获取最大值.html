@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		var arr = [1, 2, 3, 4, 5, 6];
+		// 排序
+		function getMax(arr) {
+			arr.sort(function (a, b) {
+				return a - b
+			})
+			let len = arr.length;
+			return arr[len - 1]
+		}
+
+		console.log(getMax(arr))
+
+		// 循环得出maxIndex
+		function getMax2(arr) {
+			let maxValue = arr[0];
+			let len = arr.length;
+			arr.forEach(function (v, i, a) {
+				if (v > maxValue) {
+					maxValue = v;
+				}
+			})
+			return maxValue
+		}
+
+		// max方法
+		function getMax3(arr) {
+			return Math.max(...arr);
+		}
+		console.log(getMax2(arr));
+	</script>
+
+</body>
+
+</html>

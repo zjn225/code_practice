@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        /*一、删除末尾的一个元素*/
+
+        //第一思路，splice、第一个参数是删除或增加的index，第二个参数是删除的个数、第三个参数是增加的内容
+        function deleteItem() {
+            let newArr = arr.slice();
+            let length = arr.length;
+            newArr.splice(length - 1, 1)
+            return newArr;
+        }
+
+        // slice/for循环复制+pop
+        function truncate4(arr) {
+            var newArr = arr.slice();
+            newArr.pop();
+            return newArr;
+        }
+
+        //利用slice
+        function truncate(arr) {
+            return arr.slice(0, -1);
+        }
+
+        //利用filter
+        //元素的值   元素的索引  被遍历的数组
+        function truncate2(arr) {
+            return arr.filter(function (v, i, a) {
+                return i !== arr.length - 1;
+            });
+        }
+
+        //普通的迭代拷贝
+        function truncate5(arr, item) {
+            var newArr = [];
+            for (var i = 0; i < arr.length - 1; i++) {
+                newArr.push(arr[i]);
+            }
+            return newArr;
+        }
+
+        /* 二、删除数组第一个元素
+        *splice、复制+shift()、slice、filter、普通的迭代拷贝
+        */
+
+        /* 三、删除指定值的元素 */
+        //splice方法！！！,注意第二个参数是删除的数目，第三个参数是增加的新项目
+        function removeWithoutCopy(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (target == arr[i]) {
+                    //splice方法会改变数组长度，当减掉一个元素后，后面的元素都会前移，因此需要相应减少i的值
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+            return arr;
+        }
+
+        // es6的findIndex，或者和上一个方法一样，但是target===arr[i]之后记录i值
+        function remove0(arr, target) {
+            let idx = arr.findIndex(function (v, i, a) {
+                return v === target
+            })
+            arr.splice(idx, 1)
+        }
+
+        remove0([2, 2, 2, 3, 4], 3)
+
+        // 反其道而行之，不存在的push
+        function remove1(arr, target) {
+            let newArr = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] != target) {
+                    newArr.push(arr[i]);
+                }
+            }
+            return newArr;
+        }
+
+        //filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+        function remove3(arr, target) {
+            return arr.filter(function (ele) {
+                return ele != target;
+            })
+        }
+
+        /* 四、删除指定位置的元素 */
+        // splice
+        function deleteIndex(arr, index) {
+            let newArr = arr.slice(0);
+            newArr.splice(index, 1)
+            return newArr
+        }
+
+        // 反其道行之
+        function deleteIndex2(arr, index) {
+            let newArr = [];
+            arr.forEach((v, i, a) => {
+                if (v != index) {
+                    newArr.push(v)
+                }
+            });
+            return newArr
+        }
+
+        // filter
+        function deleteIndex3(arr, index) {
+            arr.filter((v, i, a) => {
+                return i != index;
+            })
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>bibao</title>
+	<style>
+		.item {
+			border: 1px solid green;
+		}
+	</style>
+	<script src="http://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="item">0</div>
+		<div class="item">1</div>
+		<div class="item">2</div>
+		<div class="item">3</div>
+		<div class="item">4</div>
+		<div class="item">5</div>
+	</div>
+	<script>
+		var item = $('.item');
+		for (var i = 0; i < item.length; i++) {
+			item[i].onclick = function (e) {
+				alert(i);  //永远是6
+				// 解释：尽管是在每次循环创建了一个函数，但实际上由于没有创建新的作用域，其实都是被封闭在一个共享的全局作用域中，引用着同一个i，
+				// 然后由于主线程刚开始先执行完同步任务，再执行异步任务，同步任务执行完后i已经是6了，然后再创建匿名函数并执行
+			};
+		}
+
+		// 解决思路：创建新的作用域，这样就算同步任务执行完后，执行异步任务的时候，队列里的每个异步任务都是不同的作用域，都是独立的i
+
+		// 解决方法: 立即执行函数,每一次循环都会生成一个新的作用域，但是务必要传参，否则只是个空作用域
+		var item = $('.item');
+		for (var i = 0; i < item.length; i++) {
+			(function (n) {
+				item[n].onclick = function (e) {
+					alert(n);
+				};
+			})(i);
+		}
+
+		// 解决方法2：let，会隐式地创建一个块作用域，每一次循环都是重新声明的
+		var a = [];
+		for (let i = 0; i < 10; i++) {
+			a[i] = function () {
+				console.log(i);
+			};
+		} 
+
+
+		a[6](); // 6
+	</script>
+</body>
+
+</html>

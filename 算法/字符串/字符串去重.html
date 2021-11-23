@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str = 'fsfjjjfnwkjAKJ'
+
+        // 利用数组
+        function unique2(str) {
+            let arr = str.split('');
+            let res = [];
+            for (let i = 0; i < str.length; i++) {
+                let cur = arr[i];
+                if (res.indexOf(cur) === -1) {
+                    res.push(cur)
+                }
+            }
+            console.log('res', res.join(','));
+            return res.join(',')
+        }
+
+        // 利用对象统计
+        function unique(str) {
+            let arr = str.split('')  //先转化成数组
+            let obj = {};
+            for (let i = 0; i < arr.length; i++) {
+                let cur = arr[i];
+                if (obj[cur] === cur) {
+                    arr[i] = arr[arr.length - 1];
+                    arr.length--;
+                    i--;
+                } else {
+                    obj[cur] = cur
+                }
+            }
+            console.log('res', arr.join(','));
+            return arr.join(',');
+        }
+
+        //filter
+        function filter(str) {
+            let arr = str.split('');
+            let res = arr.filter((v, i, a) => {
+                return arr.indexOf(v) === i
+            })
+
+            console.log('res', res.join(','));
+            return res.join(',');
+        }
+
+        //es6：利用set元素唯一的特点，Array.from是转换为标准数组
+        function rm2(arr) {
+            let arr = str.split('');
+            let res = Array.from(new Set(arr))
+            console.log('res', res.join(','));
+            return res.join(',');
+        }
+
+        unique2(str)
+    </script>
+</body>
+
+</html>

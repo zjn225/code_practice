@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            margin: 16px;
+            padding: 4px;
+            background-color: #e7e7e7;
+            width: 104px;
+            height: 104px;
+            object-fit: contain;
+            box-shadow: inset 0 5px white,
+            inset 0 -5px #bbb,
+            inset 5px 0 #d7d7d7,
+            inset -5px 0 #d7d7d7;
+            border-radius: 10%;
+        }
+
+        .item {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin: 4px;
+            background-color: #333;
+            box-shadow: inset 0 3px #111, inset 0 -3px #555;
+        }
+
+        .isFloat {
+            display: flex;
+        }
+
+        /* --------------------一个点-------------------- */
+        .box0 {
+            display: flex;
+        }
+
+        .box1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .box2 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .box3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .box4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*--------------------- 两个点----------------------- */
+        .box5 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 难点开始！！！！！ */
+        .box6 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* 现在主轴指的就是纵轴了 */
+        }
+
+        .box7 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            /*横轴设置*/
+        }
+
+        .box8 {
+            display: flex;
+        }
+
+        .box8 .item:nth-child(2) {
+            /* 单独设置其中一个item */
+            align-self: center;
+        }
+
+        .box9 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .box9 .item:nth-child(2) {
+            /* 单独设置其中一个item */
+            align-self: flex-end;
+        }
+
+        .box10 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .box10 .item:nth-child(2) {
+            align-self: flex-end;
+        }
+
+        /*--------------------- 三个点----------------------- */
+        .box11 {
+            display: flex;
+        }
+
+        .box11 .item:nth-child(2) {
+            align-self: center;
+        }
+
+        .box11 .item:nth-child(3) {
+            align-self: flex-end;
+        }
+
+        /*--------------------- 四个点：难点！！！----------------------- */
+        /* 这个只是针对他的项目--各column */
+        .box12 {
+            display: flex;
+            flex-wrap: wrap; /*row变成flex后，四个点都会在同一行，所以需要换行*/
+            align-content: space-between;  /*多行时纵轴如何排列*/
+        }
+
+        /* 每一行 */
+        .box12 .row {
+            display: flex;
+            flex-basis: 100%; /*为什么要这个用属性呢？？？*/
+            justify-content: space-between;
+        }
+
+        .box13 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: space-between;
+        }
+
+        /* --------------------六个点----------------------------------- */
+        .box14 {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+        }
+
+        .box15 {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            flex-direction: column;
+        }
+
+        /* 第二难点！！！很好理解 */
+        .box16 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .box16 .row {
+            display: flex;
+            flex-basis: 100%; /*不用这个的话第三行会来到第二行，会共一行*/
+        }
+        
+        .box16 .row:nth-child(2) {
+            justify-content: center;
+        }
+
+        .box16 .row:nth-child(3) {
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 一个点 -->
+    <div class="oneNode isFloat">
+        <div class="box box0">
+            <span class="item"></span>
+        </div>
+        <div class="box box1">
+            <span class="item"></span>
+        </div>
+        <div class="box box2">
+            <span class="item"></span>
+        </div>
+
+        <div class="box box3">
+            <span class="item"></span>
+        </div>
+        <div class="box box4">
+            <span class="item"></span>
+        </div>
+    </div>
+
+    <!-- 两个点 -->
+    <div class="twoNode isFloat">
+        <div class="box box5">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box6">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box7">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box8">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box9">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box10">
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+    </div>
+
+    <!-- 三个点 -->
+    <div class="threeNode isFloat">
+        <div class="box box11">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+    </div>
+
+    <div class="fourNode isFloat">
+        <!-- 四个点，注意此时的结构 -->
+        <div class="box box12">
+            <div class="row">
+                <span class="item"></span>
+                <span class="item"></span>
+            </div>
+            <div class="row">
+                <span class="item"></span>
+                <span class="item"></span>
+            </div>
+        </div>
+
+        <div class="box box13">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+    </div>
+
+    <div class="sixNode isFloat">
+        <div class="box box14">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <div class="box box15">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <!-- 注意此时的结构 -->
+        <div class="box box16">
+            <div class="row">
+                <span class="item"></span>
+                <span class="item"></span>
+                <span class="item"></span>
+            </div>
+            <div class="row">
+                <span class="item"></span>
+            </div>
+            <div class="row">
+                <span class="item"></span>
+                <span class="item"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 九宫格 -->
+    <div class="box box16">
+        <div class="row">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+        <div class="row">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+        <div class="row">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+    </div>
+
+    </div>
+</body>
+
+</html>

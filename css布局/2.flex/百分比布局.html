@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex布局</title>
+    <style type="text/css">
+        .Grid {
+            display: flex;
+        }
+
+        .Grid-cell {
+            flex: 1;
+            /*flex-glow:1有多则扩大，没有则压缩
+            flex-shrink:0;
+            flex-basic:auto; */
+        }
+
+        .Grid-cell .u-full {
+            flex: 0 0 100%;
+        }
+
+        .Grid-cell.u-1of2 {
+            flex: 0 0 50%;
+        }
+
+        .Grid-cell.u-1of3 {
+            flex: 0 0 33.3333%;
+        }
+
+        .Grid-cell.u-1of4 {
+            flex: 0 0 25%;
+        }
+
+        /*
+        flex: 0 0 100%;
+        参数解释：
+        第一个参数：flex-grow定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+        第二个参数：flex-shrink定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+        第三个参数：flex-basis定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。*/
+    </style>
+</head>
+<body>
+<div class="Grid">
+    <div class="Grid-cell u-1of4" style="background-color: #2D82FF">1/4</div>
+    <div class="Grid-cell" style="background-color: #6DDA79">auto</div>
+    <div class="Grid-cell u-1of3" style="background-color: #46A0CE">1/3</div>
+</div>
+<p></p>
+<div class="Grid">
+    <div class="Grid-cell" style="background-color: #2D82FF">auto</div>
+    <div class="Grid-cell u-1of3" style="background-color: #6DDA79">1/3</div>
+</div>
+<p></p>
+<div class="Grid">
+    <div class="Grid-cell u-1of2" style="background-color: #2D82FF">1/2</div>
+    <div class="Grid-cell" style="background-color: #6DDA79">auto</div>
+    <div class="Grid-cell" style="background-color: #46A0CE">auto</div>
+</div>
+
+</body>
+</html>

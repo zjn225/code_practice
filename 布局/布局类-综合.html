@@ -1,0 +1,96 @@
+<!-- A元素垂直居中
+ A元素距离屏幕左右各边各10px
+ A元素里的文字font—size:20px,水平垂直居中
+ A元素的高度始终是A元素宽度的50%  -->
+
+<!-- 兼容性好的方法 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <style>
+        .box {
+            width: 800px;
+            height: 800px;
+            background-color: lightgoldenrodyellow;
+            position: relative;
+        }
+
+        .fox {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            /* 以上做到了左右10px，而且做到了A是占满屏幕的，不用设置宽度了,不能用margin因为这不是水平居中。 */
+            background: lightcoral;
+            /*垂直居中，前提是得设置高度为0，否则A依然是占满屏幕的 */
+            margin: auto 0;
+            /* 高度是宽度的50%，当padding-bottom设置为百分数时，基数是父元素的宽度！！*/
+            height: 0;
+            /* 设置高度为0后，就靠A内部的边距撑开高度了，这里用padding-bottom来撑起高度 */
+            padding-bottom: 50%;
+        }
+
+        .fox span {
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 相对自身的长和宽的50% */
+            transform: translate(-50%, -50%);
+        }
+    </style> -->
+
+    <style>
+        .box2 {
+            width: 400px;
+            height: 400px;
+            background-color: lightgoldenrodyellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fox2 {
+            height: 0;
+            width: 100%;
+            /*继承父元素的宽度*/
+            padding-bottom: 50%;
+            background-color: lightcoral;
+            margin: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .fox2 div {
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="fox">
+        <span>asfsadf</span>
+    </div> -->
+
+    <!-- 实现二 -->
+    <div class="box2">
+        <div class="fox2">
+            <div>asfsadf2</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

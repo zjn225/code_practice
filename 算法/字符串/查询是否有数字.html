@@ -1,0 +1,21 @@
+<script>
+    // 需求1：只要有数字/字母就行
+
+    function containsNumber(str) {
+        // let reg = /\d/;                 //只要包含数字
+        let reg = /[0-9]/            //只要包含数字
+        return reg.test(str);
+    } 
+
+    // 需求2：全是数字，如果包含小数点也算呢？
+    function containsNumber2(str){
+        let reg = /^\d+$/
+    }
+
+      function containsNumber2(str){
+        let reg = /^[0-9.]+|\d+$/
+    }
+
+
+
+</script>

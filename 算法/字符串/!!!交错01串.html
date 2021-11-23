@@ -1,0 +1,37 @@
+<script>
+    // 如果一个01串任意两个相邻位置的字符都是不一样的,我们就叫这个01串为交错01串。例如: "1","10101","0101010"都是交错01串。
+    // 小易现在有一个01串s,小易想找出一个最长的连续子串,并且这个子串是一个交错01串。小易需要你帮帮忙求出最长的这样的子串的长度是多少。
+
+    // 这种算法很重要，定死一个+for循环，两两对比，12,23,34,45，有点类似于冒泡循环第一轮
+
+    let ttt = '111101111'
+    let lines = ttt.split('');
+
+
+    let temp = lines[0]; //取数组的第一个为temp
+    let len = 1;
+    let maxLen = 1;
+    for (let i = 1; i < lines.length; i++) {
+        //计算出从下一个数字开始的非0个数。特别巧妙，注意i从1开始
+        if (lines[i] != temp) {
+            len++;
+        } else {
+            len = 1; //一旦遇到当前值和临时值相等时，len重置为1
+        }
+        //将temp设为当前i
+        temp = lines[i];
+        // 记录最大的len
+        maxLen = Math.max(maxLen, len);
+    }
+    console.log('maxLen', maxLen);
+
+
+/* 111101111
+temp = lines[0] = 1
+
+lines[1] === 1 === temp    len = 1    temp = lines[1] = 1
+lines[2] === 1 === temp    len = 1    temp = lines[2] = 1
+lines[3] === 1 === temp    len = 1    temp = lines[3] = 1
+lines[4] === 0 !== temp    len = 2    temp = lines[4] = 0
+lines[5] === 1 !== temp    len = 3    temp = lines[5] = 1  */
+</script>

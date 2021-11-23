@@ -1,0 +1,75 @@
+<script>
+    // 回文字符串就是正序倒序都是一样的;
+    //同字母异序字符串则是字符串都一样,但是位置可能不一定一样,比如abcefd和dceabf=>return true
+
+    // 回文判断 , 比如用 abcba，时间复杂度O(n)
+    const isPalindromes = function (params) {
+        // 只保留A-Z,a-z,0-9
+        params = params.toLowerCase().replace(/[^A-Za-z0-9]/g, '').split('');
+        params = params.toString().toLowerCase()
+        return params === params.split('').reverse().join('');  //字符串->数组->翻转->字符串
+    }
+
+    // 同字母异序判定,比如`abcefd`和`dceabf`,sort方法默认就是字母的字典序排的
+    const isAnagram = function (str1, str2) {
+        str1 = str1.toString().toLowerCase();
+        str2 = str2.toString().toLowerCase();
+        return str1.split('').sort().join('') === str2.split('').sort().join('')  //思路是加了一个排序，然后再对比
+    }
+
+    // 遍历的方式
+    const isPalindrome = (s) => {
+        // 将传入的字符串,统一转化为小写,同时去除非字母和数字,在转换为数组
+        const arr = s.toLowerCase().replace(/[^A-Za-z0-9]/g, '').split('');
+        let i = 0;
+        let j = arr.length - 1;
+        // 循环比较元素
+        while (i < j) {
+            // 从首尾开始, 一一比较元素是否相等
+            if (arr[i] === arr[j]) {
+                // 若相等,即第二个元素和倒数第二个元素继续比较,依次类推
+                i += 1;
+                j -= 1;
+            } else {
+                // 只要有一个相对位置上不相等,既不是回文串
+                return false;
+            }
+        }
+        // 是回文串
+        return true;
+    };
+
+    // 难点来了，如何找到最长回文字符串
+    const longestPalindrome = function (s) {
+        if (s == null || s.length < 1) {
+            return '';
+        }
+        let start = 0; let end = 0;
+        // 从中心向两边扩展
+        const expandFromCenter = (s, left, right) => {
+            while (left >= 0 && right < s.length && s[left] === s[right]) {
+                left -= 1;
+                right += 1;
+            }
+            return right - left - 1;
+        };
+        for (let i = 0; i < s.length; i += 1) {
+            // 中心的两种选取（奇对称和偶对称）
+            const len1 = expandFromCenter(s, i, i);
+            const len2 = expandFromCenter(s, i, i + 1);
+            // 两种组合取最大的回文子串长度
+            const len = Math.max(len1, len2);
+            // 如果此位置为中心的回文数长度大于之前的长度，则进行处理
+            if (len > end - start) {
+                start = i - Math.floor((len - 1) / 2);
+                end = i + Math.floor(len / 2);
+            }
+        }
+        return s.substring(start, end + 1);
+    };
+
+    const a = longestPalindrome("babad");
+    console.log("a", a)
+
+
+</script>

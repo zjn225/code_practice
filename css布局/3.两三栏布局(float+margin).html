@@ -1,0 +1,33 @@
+<!-- 特征：侧栏固定宽度，主栏自适应宽度。 -->
+<!-- 设置两个侧栏分别向左向右浮动，中间列通过外边距给两个侧栏腾出空间，中间列的宽度根据浏览器窗口自适应。 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		/* .sub{
+		    width: 100px;
+		    float: left;
+		    background: #eee;
+		} */
+		.extra{
+		    width: 200px;
+		    float: right;
+		    background: #ccc;
+		}
+		.main{
+			margin:0 200px 0px 0;
+		    background: lightgreen;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<!-- 先写两侧栏，再写主面板.更换后则侧栏会被挤到下一列（圣杯布局和双飞翼布局都会用到）。-->
+		<!-- 缺点是渲染时先渲染了侧边栏，而不是比较重要的主面板。 -->
+  	  <!-- <div class="sub">sub</div> -->
+  	  <div class="extra">extra</div>
+  	  <div class="main">main</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		// 方法一：indexOf ，利用数组
+		function rm1(arr) {
+			let result = [];
+			arr.forEach(function (item) {
+				if (!result.includes(item)) {//表示不在结果数组里,在的话。；就不加进去了
+					result.push(item);
+				}
+			})
+			return result;
+		}
+
+		//方法二：es6利用set元素唯一的特点，Array.from是转换为标准数组/或用...转换
+		function rm2(arr) {
+			return Array.from(new Set(arr))
+		}
+
+		rm1([3, 5, 7, 3, 5, 7, 7, 9])
+		rm2([3, 5, 7, 3, 5, 7, 7, 9])
+
+		// 方法三、filter，利用刚加入元素的数组是 和index相等
+		function rm(arr) {
+			return arr.filter(function (item, index, arr) {
+				return arr.indexOf(item) === index;  //如果用map，那么这个===会返回布尔值
+			});
+		}
+
+
+		// 方法四、利用对象统计，注意涉及到长度变化不能用forEach了
+		function unique(arr) {
+			let obj = {};
+			for (let i = 0; i < arr.length; i++) {
+				let cur = arr[i];  //当前元素
+				if (obj[cur] === cur) {  //数组已经存在该元素,这个判定条件非常重要
+					arr[i] = arr[arr.length - 1];//把该位置用数组最后一个顶上去, 相当于第i个被删除了
+					arr.length--;  //然后把最后一个元素删除
+					i--;		   //索引	
+				} else {
+					obj[cur] = cur;
+				}
+			}
+			return arr; //链式写法，把去重后的数组返回
+		};
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!-- 特征：侧栏固定宽度，主栏自适应宽度。 -->
+<!-- 通过绝对定位将两个侧栏固定，同样通过外边距给两个侧栏腾出空间，中间列自适应。 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.sub, .extra {
+	  background: #ccc;
+   	  position: absolute;
+   	  top: 0; 
+   	  width: 200px;
+	}
+	.sub { 
+	   left: 0;
+	}
+	.extra { 
+	   right: 0; 
+	}
+	.main { 
+	   background: lightgreen;
+	   margin: 0 200px;
+	}
+	</style>
+</head>
+<body>
+	<!-- 书写顺序依然为先写侧栏 -->
+	<!-- 如果中间栏含有最小宽度限制，或是含有宽度的内部元素，则浏览器窗口小到一定程度，主面板与侧栏会发生重叠 -->
+  	<div class="sub">sub</div>
+  	<div class="extra">extra</div>
+  	<div class="main">content</div>
+</body>
+</html>
