@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 要求设计 LazyMan 类，实现以下功能
+        class LazyManClass {
+            constructor(name) {
+                this.name = name
+                this.queue = []
+                console.log(`Hi I am ${name}`)
+                setTimeout(() => {
+                    this.next()
+                }, 0)
+            }
+
+            sleepFirst(time) {
+                const fn = () => {
+                    setTimeout(() => {
+                        console.log(`等待了${time}秒...`)
+                        this.next()
+                    }, time * 1000)
+                }
+                this.queue.unshift(fn)
+                return this
+            }
+
+            sleep(time) {
+                const fn = () => {
+                    setTimeout(() => {
+                        console.log(`等待了${time}秒...`)
+                        this.next()
+                    }, time * 1000)
+                }
+                this.queue.push(fn)
+                return this
+            }
+
+            eat(food) {
+                const fn = () => {
+                    console.log(`I am eating ${food}`)
+                    this.next()
+                }
+                this.queue.push(fn)
+                return this
+            }
+
+            next() {
+                console.log('next-----', this.queue);
+                // 出队，先进先出
+                const fn = this.queue.shift()
+                fn && fn()
+            }
+        }
+
+        function LazyMan(name) {
+            return new LazyManClass(name)
+        }
+
+        // 为什么constructor里要有next，初始化调用，之后再有链式调用则是他们各自方法里有执行next方法
+        // 为什么constructor里要有定时器，因为下面的每个方法在操作队列的时候都是同步操作的，根据事件循环，可知constructor里的定时器任务将会在所有方法执行完之后才会执行
+        // 每个方法返回this是为了能够链式调用
+
+
+        /*
+        LazyMan('Tony');
+        // Hi I am Tony
+
+        LazyMan('Tony').sleep(10).eat('lunch');
+        // Hi I am Tony
+        // 等待了10秒...
+        // I am eating lunch
+
+        LazyMan('Tony').eat('lunch').sleep(10).eat('dinner');
+        // Hi I am Tony
+        // I am eating lunch
+        // 等待了10秒...
+        // I am eating diner
+        */
+
+        LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(1).sleep(10).eat('junk food');
+        // Hi I am Tony
+        // 等待了5秒...
+        // I am eating lunch
+        // I am eating dinner
+        // 等待了10秒...
+        // I am eating junk food
+    </script>
+</body>
+
+</html>
