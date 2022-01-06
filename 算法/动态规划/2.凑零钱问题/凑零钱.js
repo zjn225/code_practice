@@ -28,7 +28,8 @@
   - 所以，总金额为 120 的最优解法就是上面这三种解法中最优的一种，也就是硬币数最少
     的一种，我们下面试着用代码来表示一下：
     
-  - dp[120] = Math.min(dp[119] + 1, dp[118] + 1, dp[115] + 1);
+  - 最终求的 dp[120] = Math.min(dp[119] + 1, dp[118] + 1, dp[115] + 1);
+  - 然后接下来继续得到dp[0] —— dp[120]的值
     
   - 推导出「状态转移方程」：
     dp[i] = Math.min(dp[i - coin] + 1, dp[i - coin] + 1, ...)
@@ -42,7 +43,7 @@
 */
 
 const coinChange = (coins, amount) => {
-    let dp = new Array(amount + 1).fill(Infinity)
+    let dp = new Array(amount + 1).fill(Infinity)  // 为什么是+1，虽然数组的索引是从0开始的，但是dp里的索引是语义化的，比如dp[11]就代表是凑齐到11枚所需的最少硬币数，而不是dp[10]去表达
     dp[0] = 0
     for (let coin of coins) {
         for (let i = coin; i <= amount; i++) {
@@ -53,3 +54,28 @@ const coinChange = (coins, amount) => {
 }
 
 coinChange([1, 2, 5], 11)
+
+
+// 测试专用，看控制台输出理解
+function coinChange(coins, amount) {
+  let dp = new Array(amount + 1).fill(Infinity)
+  dp[0] = 0
+  for (let coin of coins) {
+      console.log('---------------------------------');
+      console.log('外', coin);
+      for (let i = coin; i <= amount; i++) {
+          let a = dp[i]
+          let b = dp[i - coin] + 1
+          dp[i] = Math.min(a, b)
+          console.log('  内', `dp[${i}]`, a, b, dp[i], '---', i, coin, i - coin, dp);
+      }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount]
+}
+
+console.log(coinChange([1, 2, 5], 11))
+
+/*
+dp[i]表示凑齐到金额为i的硬币最少需要多少枚
+外 coin = 1，代表在第一枚硬币为1的前提下，需要至少多少枚才能凑齐到i, 为什么不直接让i等于amount呢，因为要从dp[1]开始求，i也只能从最小开始
+*/
