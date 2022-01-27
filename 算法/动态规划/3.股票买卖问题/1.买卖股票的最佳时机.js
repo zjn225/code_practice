@@ -1,87 +1,61 @@
-/*
-给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格
-你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润
-返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 
+<!-- A.html -->
+<!DOCTYPE html>
+<html lang="en">
 
-示例 1：
-输入：[7,1,5,3,6,4]
-输出：5
-解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5
-        注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A</title>
+</head>
 
-示例 2：
-输入：prices = [7,6,4,3,1]
-输出：0
-解释：在这种情况下, 没有交易完成, 所以最大利润为 0
-*/
+<body>
+    <button type="button" onclick="openB()">B</button>
+    <script>
+        let maxProfit = function (prices) {
+            let sell = 0; // 卖出时的利润
+            let buy = -Infinity; // 买入时的利润, 为什么这个就是负的呢，因为买了后自己的利润肯定是负的，因为减去了成本
+            prices.forEach((currentPrice, i) => {
+                // 每一次遍历可以理解为这个价格currentPrice买入和卖出的，
+                // buy就是currentPrice买入的时候，本次交易的利润  和 上次买入的利润 对比   （这个buy必然是负的，因为buy其实就相当于负的成本）
+                // sell就是currentPrice卖出的时候，本次交易的利润（）  和 上次卖出的利润对比
 
-// 简洁版，注意下，这个版本才是能用的！
-// （注意：利润是手里的钱，买进去的，当然你手里就没钱了）
-let maxProfit = function (prices) {
-    let sell = 0; // 卖出时的利润
-    let buy = -Infinity; // 买入时的利润
-    prices.forEach(currentPrice => {
-        // 买入时的利润，求最大值（上次买入时的利润，本次交易的利润，由于是只有一次买入，因为买之前利润就是0，所以肯定就是-current）
-        buy = Math.max(buy, -currentPrice);
-        // 卖出时利润：求最大值（上次卖出时的最大利润，本次交易的利润 + 上次买入的利润）
-        sell = Math.max(sell, currentPrice + buy);
-    })
-    return sell;
-};
+                // 买入时的利润，求最大值（上次买入时的利润，本次交易的利润，由于是只有一次买入，因为买之前利润就是0，所以肯定就是-current）
+                // （这个buy必然是负的，因为buy其实就相当于负的成本）
+                buy = Math.max(buy, -currentPrice);
+                // 卖出时利润：求最大值（上次卖出时的最大利润，本次交易的利润 + 上次买入的利润（这个buy必然是负的，因为buy其实就相当于负的成本）,
+                // 所以本质就是上次买入的利润 and  本次currentPrice卖出的价格 - 成本，这两个利润的对比
+                sell = Math.max(sell, currentPrice + buy);
+            })
+            return sell;
+        };
 
 
-maxProfit([7, 1, 5, 3, 6, 4]);
-maxProfit([7, 6, 4, 3, 1]);
+        console.log(maxProfit([7, 1, 5, 3, 6, 4]))
 
-/* 动态规划, 帮助理解
-比如说 dp[3][2][1] 的含义就是：今天是第三天，我现在手上持有着股票，至今最多进行 2 次交易。再比如 dp[2][3][0] 的含义：今天是第二天，我现在手上没有持有股票，至今最多进行 3 次交易
-我们想求的最终答案是 dp[n - 1][K][0]，即最后一天，最多允许 K 次交易，最多获得多少利润
+        /*
 
-一、两条状态转移方程：(i表示第i天、k表示最多交易k天，0表示当天不持有；dp值表示利润)
+        begin {currentPrice: 7, buy: -Infinity, sell: 0}
+        end   {currentPrice: 7, buy: -7, sell: 0}
+        ---------------------------------------------------
+        begin {currentPrice: 1, buy: -7, sell: 0}
+        end   {currentPrice: 1, buy: -1, sell: 0}
+        ---------------------------------------------------
+        begin {currentPrice: 5, buy: -1, sell: 0}
+        end   {currentPrice: 5, buy: -1, sell: 4}
+        ---------------------------------------------------
+        begin {currentPrice: 3, buy: -1, sell: 4}
+        end   {currentPrice: 3, buy: -1, sell: 4}
+        ---------------------------------------------------
+        begin {currentPrice: 6, buy: -1, sell: 4}
+        end   {currentPrice: 6, buy: -1, sell: 5}
+        ---------------------------------------------------
+        begin {currentPrice: 4, buy: -1, sell: 5}
+        end   {currentPrice: 4, buy: -1, sell: 5}
+        ---------------------------------------------------
 
-1.dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])  
-解释：今天我没有持有股票，有两种可能：
-我昨天就没有持有，然后今天选择休息 ，那么利润就是dp[i-1][k][0]，不能直接写0，因为前一天，前前一天不知道是多少，求dp[i-1][k][0]的时候就会递归去求前面天数的利润了
-我昨天持有股票，今天我sell了，利润就是昨天的利润dp[i-1][k][1] + 今天卖出的价格；为什么不是今天价格 - 昨天的价格？因为dp值表示的是利润了，比如dp[i-1]包含了从最开始到i-1那天的所有利润
+        */
 
-2.dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
-解释：今天我持有着股票，有两种可能：
-我昨天就持有着股票，然后今天选择 rest，所以我今天还持有着股票
-我昨天本没有持有，但今天我选择 buy，所以今天我就持有股票了，那么利润就是昨天的利润 - 今天买入的价格
+    </script>
+</body>
 
-买的时候减，卖的时候加
-
-二、定义base case
-dp[-1][k][0] = dp[i][0][0] = 0  还没开始 / 不可交易
-dp[-1][k][1] = dp[i][0][1] = -infinity 还没开始不可能有股票 / 不允许交易不可能有股票
-
-三、开始写代码
-这题的k是1，开始套转移方程
-dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1] + prices[i])
-dp[i][1][1] = max(dp[i-1][1][1], dp[i-1][0][0] - prices[i]) 
-            = max(dp[i-1][1][1], -prices[i])
-
-发现 k 都是 1，不会改变，即 k 对状态转移已经没有影响了。可以进行进一步化简去掉所有 k
-dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
-dp[i][1] = max(dp[i-1][1], -prices[i])
-*/
-let maxProfit = function (prices) {
-    if (!prices || !prices.length) return 0
-    const len = prices.length;
-    const dp = Array.from(new Array(len), () => new Array(2));  // 生成长度为len的数组，这个数组每一个元素都是一个长度为2的数组
-
-    for (let i = 0; i < len; i++) {
-        // 显然 i = 0 时 dp[i-1] 是不合法的。这是因为我们没有对 i 的 base case 进行处理
-        if (i - 1 === -1) {
-            dp[i][0] = 0;
-            dp[i][1] = -prices[i]; // dp[i][1] = max(dp[-1][1], dp[-1][0] - prices[i]) = max(-infinity, 0 - prices[i]) 
-            continue;
-        }
-        dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
-        dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
-    }
-
-    return dp[len - 1][0];
-}
-
-maxProfit([7, 1, 5, 3, 6, 4]);
+</html>
