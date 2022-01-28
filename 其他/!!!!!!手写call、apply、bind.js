@@ -8,8 +8,9 @@ Function.prototype.myApply = function (context = window, args = []) {
     // 为什么不直接context(...args)，对象不可能执行，只可能被绑定
     // 为什么不直接this(...args)，因为this就是指向调用者，直接return这玩意的话，到时候执行的时候this就指向执行者的bar了，但是实际上要指向的是context，也就是传入的foo，所以必须由context去执行
     // 为什么this要指向context？这样执行bar的时候，this取值的时候
-    context[key] = this
-    const result = context[key](...args)
+
+    context[key] = this  // foo[key] = bar，也就是将调用者的构造函数绑定在传入的作用域/对象里的某个key里
+    const result = context[key](...args) // 比如foo[key](...args), 也就是以传入作用域的前缀，去执行这个构造函数，这样就达到了改变this指向的作用了
     delete context[key]
     return result
 }
