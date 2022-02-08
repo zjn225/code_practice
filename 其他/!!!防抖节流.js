@@ -10,6 +10,7 @@ function debounce(func, wait) {
         const context = this;
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
+            // 为什么要apply呢，并不是为了改变this，而是利用了apply在执行的时候，会把第二个参数（数组）扁平化传入，比如func(context, [1,2,3]) 等价于 func(1,2,3)
             func.apply(context, args)
         }, wait);
     }
