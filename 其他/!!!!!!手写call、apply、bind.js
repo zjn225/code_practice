@@ -34,6 +34,7 @@ Function.prototype.myCall = function (context, ...args) {
 
 Function.prototype.bind = function (objThis, ...params) {
     const thisFn = this; // //保存this值，指的调用bind的函数的this值
+    // 比如bar，是肯定要执行的，到时候通过call去改变this指向
     // 因为bind是返回一个函数的，而不是像call、apply那种直接执行的，所以这里返回一个函数
     let fToBind = function (...secondParams) {
         // this（这个this是内部的this了）是否是fToBind的实例 也就是返回的fToBind是否通过new调用，所以可通过instanceof来判断， bindFn2.__proto__ = bindFn
