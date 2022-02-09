@@ -7,11 +7,11 @@
 function debounce(func, wait) {
     let timeout;
     return function (args) {
-        const context = this;
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
-            // 为什么要apply呢，并不是为了改变this，而是利用了apply在执行的时候，会把第二个参数（数组）扁平化传入，比如func(context, [1,2,3]) 等价于 func(1,2,3)
-            func.apply(context, args)
+            // 为什么要apply呢 第一：是利用了apply在执行的时候，会把第二个参数（数组）扁平化传入，比如func(context, [1,2,3]) 等价于 func(1,2,3)；
+            // 第二：是要在执行func的时候把this指向到return的函数里，然后在绑定事件的时候，就可以执行到触发事件的dom了
+            func.apply(this, args)
         }, wait);
     }
 }
@@ -78,6 +78,54 @@ function throttle(func, wait) {
 其实时间戳版和定时器版的节流函数的区别就是，时间戳版的函数触发是在时间段内开始的时候，而定时器版的函数触发是在时间段内结束的时候
 
 */
+
+
+
+demo 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        123132123
+    </div>
+    <script>
+        const container = document.querySelector('.container')
+        
+        cb.a = 123
+
+        function cb (e) {
+            console.log(this)
+        }
+
+
+        const cb2 = debounce(cb, 200)
+        container.addEventListener('click', cb2)
+
+        function debounce(func, wait) {
+            let timeout;
+            return function (args) {
+                if (timeout) clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    func.apply(this, args)
+                }, wait);
+            }
+        }
+    </script>
+</body>
+</html>
 
 
 
