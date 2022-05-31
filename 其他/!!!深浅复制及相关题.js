@@ -14,7 +14,7 @@ let obj1 = { person: { name: "kobe", age: 41 }, sports: 'basketball' };
 let obj2 = Object.assign({}, obj1);
 obj2.person.name = "wade";
 obj2.sports = 'football'
-console.log(obj1); // { person: { name: 'wade', age: 41 }, sports: 'basketball' }
+console.log(obj1); // { person: { name: 'wade', age: 41 }, sports: 'basketball' }  浅复制就是第一层的基本类型不受修改的影响，第二层被改到了，也证明了这个方法就是个浅复制罢了
 
 // 展开运算符...  与 Object.assign ()的功能相同
 let obj1 = { name: 'Kobe', address: { x: 100, y: 100 } }
@@ -44,7 +44,7 @@ function cloneDeep(source, hash = new Map()) {
   if (obj instanceof RegExp) return new RegExp(obj);
   // 可能是对象或者普通的值  如果是函数的话是不需要深拷贝
   if (typeof obj !== "object") return obj;
-  // 循环检测，我们设置一个数组或者哈希表存储已拷贝过的对象，当检测到当前对象已存在于哈希表中时，取出该值并返回即可
+  // 循环检测，我们设置一个数组或者哈希表存储已拷贝过的对象，当检测到当前对象已存在于哈希表中时，取出该值并返回即可，这样就不会进入到下面的递归了
   if (hash.has(source)) return hash.get(source); // 新增代码，查哈希表
   let target = Array.isArray(source) ? [] : {}; // source拷贝到target
   hash.set(source, target); // 新增代码，哈希表设值
